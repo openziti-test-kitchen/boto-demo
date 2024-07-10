@@ -20,11 +20,11 @@ def push_logs_to_s3(bucket_name, bucket_endpoint, push_log_dir, object_prefix):
         if file_name.endswith(".log"):
             file_path = os.path.join(push_log_dir, file_name)
             # Upload the file to the S3 bucket
-            openziti.monkeypatch()
-            if object_prefix:
-                s3_client.upload_file(file_path, bucket_name, f"{object_prefix}/{file_name}")
-            else:
-                s3_client.upload_file(file_path, bucket_name, file_name)
+            with openziti.monkeypatch():
+                if object_prefix:
+                    s3_client.upload_file(file_path, bucket_name, f"{object_prefix}/{file_name}")
+                else:
+                    s3_client.upload_file(file_path, bucket_name, file_name)
 
 
 if __name__ == "__main__":
