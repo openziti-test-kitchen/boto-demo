@@ -6,7 +6,7 @@ import openziti
 import os
 
 def configure_openziti(ziti_identity_file, bucket_endpoint):
-    print(f"Configuring openziti with service name: {ziti_identity_file}."
+    print(f"Configuring openziti with identity file: {ziti_identity_file}."
           f"Ensure Dial Service Policy grants intercept '{bucket_endpoint}'.")
     return openziti.load(ziti_identity_file)
 
