@@ -5,6 +5,7 @@ import boto3
 import openziti
 import os
 
+
 def configure_openziti(ziti_identity_file, bucket_endpoint):
     print(f"Configuring openziti with identity file: {ziti_identity_file}."
           f"Ensure Dial Service Policy grants intercept '{bucket_endpoint}'.")
@@ -23,15 +24,17 @@ def push_logs_to_s3(bucket_name, bucket_endpoint, push_log_dir, object_prefix):
             with openziti.monkeypatch():
                 if object_prefix:
                     s3_client.upload_file(file_path, bucket_name, f"{object_prefix}/{file_name}")
+                    print(f"Uploaded {file_path} to {bucket_name}/{object_prefix}.")
                 else:
                     s3_client.upload_file(file_path, bucket_name, file_name)
+                    print(f"Uploaded {file_path} to {bucket_name}.")
+
 
 
 if __name__ == "__main__":
     # Parse command line arguments
     parser = argparse.ArgumentParser()
     parser.add_argument('--ziti-identity-file', required=True, help='Ziti identity file')
-    parser.add_argument('--region', required=True, help='AWS region')
     parser.add_argument('--bucket-name', required=True, help='bucket name')
     parser.add_argument('--bucket-endpoint', required=True, help='private bucket endpoint')
     parser.add_argument('--object-prefix', required=False, default='', help='object key prefix in bucket for pushed files')
