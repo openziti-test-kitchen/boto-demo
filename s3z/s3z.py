@@ -8,7 +8,7 @@ from boto3 import client
 
 
 def configure_openziti(ziti_identity_file):
-    print(f"Configuring with",
+    print("Configuring with",
           f"identity file '{ziti_identity_file}'")
     return openziti.load(ziti_identity_file)
 
@@ -30,6 +30,7 @@ def push_logs_to_s3(bucket_name, bucket_endpoint,
                     s3.upload_file(file_path, bucket_name, file_name)
                     print(f"Uploaded {file_path} to {bucket_name}")
 
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--ziti-identity-file', required=True,
@@ -46,7 +47,7 @@ if __name__ == "__main__":
 
     sts = client('sts')
     caller = sts.get_caller_identity()
-    print(f"\nAuthenticated to AWS as:",
+    print("\nAuthenticated to AWS as:",
           f"UserId: {caller.get('UserId')}",
           f"Account: {caller.get('Account')}",
           f"Arn: {caller.get('Arn')}\n", sep="\n\t")
