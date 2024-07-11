@@ -24,11 +24,11 @@ def push_logs_to_s3(bucket_name, bucket_endpoint,
                 if object_prefix:
                     s3.upload_file(file_path, bucket_name,
                                    f"{object_prefix}/{file_name}")
-                    print(f"Uploaded {file_path} to"
-                          f"{bucket_name}/{object_prefix}.")
+                    print(f"Uploaded {file_path} to",
+                          f"{bucket_name}/{object_prefix}")
                 else:
                     s3.upload_file(file_path, bucket_name, file_name)
-                    print(f"Uploaded {file_path} to {bucket_name}.")
+                    print(f"Uploaded {file_path} to {bucket_name}")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
